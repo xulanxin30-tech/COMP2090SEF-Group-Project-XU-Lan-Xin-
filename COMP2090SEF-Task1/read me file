@@ -1,6 +1,95 @@
-🧩 Task 1: OOP Application Development
-📌 **Deliverables in `Task1/`**:
-- Source code (`task1-code/`)
-- Project report (`task1-report.pdf`)
-- User guide (`task1-user_guide.md`)
-- Video link (`task1-video_link.txt`)
+# Campus Second-hand Trading Platform – Task 1
+
+## 📌 Project Overview
+This is the core module (Task 1) of a campus second-hand trading platform, implemented in **Python** following Object-Oriented Programming principles. It demonstrates the use of **Abstract Data Types (ADT)**, encapsulation, inheritance, polymorphism, and modular design to manage users, books, and orders. The code provides a solid foundation for future extensions (GUI, database, etc.).
+
+## ✨ Key Features
+- **Abstract Base Class (ADT)**: `BaseUser` defines a common interface (`get_info`, `change_email`) for all user types.
+- **Inheritance & Polymorphism**: `Seller` and `Buyer` inherit from `User` and override `get_info()` to include their specific attributes.
+- **Encapsulation**: Internal attributes (e.g., `_name`, `_email`) are accessed via methods, with validation (campus email suffix, non-negative prices).
+- **Modular Data Management**: `DataHandler` and its subclasses (`UserHandler`, `BookHandler`, `OrderHandler`) separate concerns for different data types.
+- **State Management**: `Book` supports condition updates (`new`, `like_new`, `used`, `sold`); `Order` supports status updates (`pending`, `paid`, `shipped`, `completed`, `cancelled`).
+- **Robustness**: Duplicate IDs are rejected with exceptions; negative prices raise `ValueError`.
+
+## 🧱 Class Structure
+
+### 1. User Classes
+- `BaseUser` (abstract)  
+  - `get_info()`: return user basic info  
+  - `change_email(new_email)`: update email (campus domain check)
+- `User` (inherits `BaseUser`)  
+  - Attributes: `_name`, `_id`, `_email`  
+  - Implements abstract methods; provides `__str__`
+- `Seller` (inherits `User`)  
+  - Additional attribute: `store_name`  
+  - Overrides `get_info()`: adds store info
+- `Buyer` (inherits `User`)  
+  - Additional attribute: `shipping_addr`  
+  - Overrides `get_info()`: adds shipping address
+
+### 2. Product & Order Classes
+- `Book`  
+  - Attributes: `book_id`, `title`, `author`, `seller_id`, `price`, `condition`  
+  - Methods: `update_condition()`, `get_book_details()`; internal price validation
+- `Order`  
+  - Attributes: `order_id`, `buyer_id`, `book_id`, `total`, `status`  
+  - Methods: `update_status()`, `get_order_details()`; internal price validation
+
+### 3. Data Managers
+- `DataHandler` (generic manager)  
+  - `items` list stores entities  
+  - `add(item)`: auto-detects type, prevents duplicate IDs  
+  - `remove(item_id)`: deletes by ID  
+  - `get_all()`: returns all stored items
+- `UserHandler`, `BookHandler`, `OrderHandler` (inherit `DataHandler`)  
+  - Dedicated managers for users, books, and orders, keeping the design modular.
+
+## 🚀 Quick Start
+### Requirements
+- Python 3.6+
+### Running the Example
+Execute the script directly to see a complete test flow:
+```bash
+python Task1.py
+```
+Sample output (partial):
+```
+Added S001 successfully
+Added B001 successfully
+
+--- User Info ---
+Seller: {'id': 'S001', 'name': 'Anna', 'email': 'anna@school.edu', 'store': "Anna's Book Shop"}
+Buyer: {'id': 'B001', 'name': 'Ben', 'email': 'ben@school.edu', 'shipping_address': 'Dorm 5, Room 102'}
+
+--- Status Updates ---
+Book BK001 condition: sold
+Order OD001 status: paid
+Email updated for Ben: ben_new@school.edu
+
+--- All Data ---
+Users: [{'id': 'S001', 'name': 'Anna', 'email': 'anna@school.edu', 'store': "Anna's Book Shop"}, {'id': 'B001', 'name': 'Ben', 'email': 'ben_new@school.edu', 'shipping_address': 'Dorm 5, Room 102'}]
+Books: [{'id': 'BK001', 'title': 'Python Basics', 'author': 'John Smith', 'seller': 'S001', 'price': 19.9, 'condition': 'sold'}]
+Orders: [{'id': 'OD001', 'buyer': 'B001', 'book': 'BK001', 'total': 19.9, 'status': 'paid'}]
+
+--- Remove Test ---
+Removed book BK001
+```
+
+## 📁 File Structure
+```
+Task1.py
+├── Abstract Base Class BaseUser
+├── User Classes (User, Seller, Buyer)
+├── Book Class
+├── Order Class
+├── Data Managers (DataHandler, UserHandler, BookHandler, OrderHandler)
+└── Test code (if __name__ == "__main__")
+```
+
+## 📦 Dependencies
+- No external libraries; only Python standard library.
+
+## 🔮 Future Plans
+A video walkthrough explaining the OOP design and implementation details will be uploaded soon. Stay tuned!
+
+---
