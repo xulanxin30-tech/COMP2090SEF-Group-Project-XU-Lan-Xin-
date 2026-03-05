@@ -1,19 +1,13 @@
 📌 Project Overview
 This is the core module (Task 1) of a campus second-hand trading platform, implemented in Python following Object-Oriented Programming principles. It demonstrates the use of Abstract Data Types (ADT) , encapsulation, inheritance, polymorphism, and modular design to manage users, books, and orders. The code provides a solid foundation for future extensions (GUI, database, etc.).
-
 Authors: Group 9
 Course: COMP2090 Software Engineering Fundamentals
 Repository: COMP2090SEF-Task1
 
 ✨ Key Features
 Abstract Base Class (ADT) : BaseUser defines a common interface (get_info, change_email) for all user types.
-
 Inheritance & Polymorphism: Seller and Buyer inherit from User and override get_info() to include their specific attributes.
-
 Encapsulation: Internal attributes (e.g., _name, _email) are accessed via methods, with validation (campus email suffix, non-negative prices).
-
 Modular Data Management: DataHandler and its subclasses (UserHandler, BookHandler, OrderHandler) separate concerns for different data types.
-
 State Management: Book supports condition updates (new, like_new, used, sold); Order supports status updates (pending, paid, shipped, completed, cancelled).
-
 Robustness: Duplicate IDs are rejected with exceptions; negative prices raise ValueError.
